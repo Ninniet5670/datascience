@@ -285,9 +285,11 @@ a[b]
 
 # ou simplesmente
 
+b
 a[a>5]
 
->>>
+>>> array([False, False, False, False, False, False,  True,  True,  True, True])
+array([6, 7, 8, 9])
 ```
 
 
@@ -434,7 +436,7 @@ DataFrame é importante por isso, o processamento dos dados matemáticos tornam-
 
 
 
-Quando se é extraído uma coluna de um DataFrame, ela vira um Series do Panda
+Quando se é extraído uma coluna ou uma linha de um DataFrame, ela vira um Series do Panda
 
 Para extrair mais de uma coluna, usa-se a seguinte sintaxe:
 
@@ -456,6 +458,309 @@ df[['Y', 'Z']]
 ```
 
 ![image-20220513041810418](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220513041810418.png)
+
+
+
+Para criar ou adicionar colunas a um DataFrame, deve-se prover todos os dados necessários, caso contrário, dará erro
+
+```python
+df['new'] = df['X'] + df['Y']
+df
+
+>>> 
+```
+
+![image-20220514112804297](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220514112804297.png)
+
+Foi apenas somado um valor com o outro no final
+
+
+
+Para apagar colunas, usa-se o método `.drop(axis=1)` 
+
+para apagar linhas, apenas o `.drop()` sem o parâmetro `axis`
+
+Contudo, tais mudanças acima não são permanentes para o DataFrame, necessitando assim de mais um parâmetro, sendo ele o `inplace=True`
+
+```python
+df.drop('new', axis=1, inplace=True)
+```
+
+
+
+Para extrair uma linha, usa-se o método `.loc()` ou o `.iloc()`, os quais também a converte para uma Series
+
+pense no "loc" como "localization", recebe o nome do objeto como parâmetro
+
+e no "i" que poderá vir antes como "index", recebe o index do elemento como parâmetro
+
+
+
+Para especificar um item do DataFrame, usa-se 2 parâmetros no método `.loc()`, primeiro a linha depois a coluna
+
+Por fim, para fazer uma submatriz de uma matriz original, basta: 
+
+```python
+df.loc([['A', 'B'], ['X', 'Y']])
+df
+
+>>>
+```
+
+![image-20220515043923105](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220515043923105.png)
+
+
+
+É possível comparar um DataFrame com outro da seguinte forma:
+
+> comparar pedaços de uma matriz também é possível
+
+```python
+newdf = df > 0
+
+df[newdf]
+
+# df[df > 0] ou comparando entre si
+
+>>>
+```
+
+![](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220515051723719.png)
+
+ele irá retornar os valores originais caso o seu index do comparado seja True, senão, retorna NaN
+
+NaN, convenhamos, não é uma forma sutil de demonstrar um dado, portanto, é possível por meio da comparação, comparar ainda mais, mostrando somente os dados que possuem algo
+
+Método chamado de **Indexação Condicional**
+
+> Saber como se funciona uma lista é perfeito pra esse tipo de trabalho
+
+```python
+df[df['X'] > 0]
+
+>>>
+```
+
+![](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220515051925775.png)
+
+```python
+df[df['X'] > 0]['X']
+
+>>> A    0.556989
+B    1.536716
+E    0.284850
+Name: X, dtype: float64
+```
+
+
+
+Os operadores `and` ou `or` do Python não conseguem comparar 2 Series, precisando utilizar o `&` e o `|`
+
+```python
+df[(df["W"]>0) | (df["Y"]>1)]
+```
+
+
+
+Para resetar o nome do index do DataFrame para o padrão do Python (decimal), usa-se `.reset_index()`
+
+o index antigo será salvo como uma nova coluna
+
+não muda permanentemente o DataFrame original, apenas com `inplace=True`
+
+
+
+Para renomear o seu index, usa-se `.set_index()`
+
+é necessário que a quantidade do parâmetro seja igual ao número de linhas
+
+```python
+newind = 'PA PR RJ SP BA'.split()
+
+df['Estados'] = newind
+
+df.set_index('Estados')
+
+>>>
+```
+
+![image-20220515074106393](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220515074106393.png)
+
+
+
+Quando for converter um dicionário para um DataFrame, a chave será o nome das colunas e seus valores serão os próprios valores, podendo salientar o nome dos seus index pelo parâmetro de mesmo nome
+
+para permitir a criação de valores `NaN`, usa-se `np.nan`
+
+usa-se `pd.DataFrame()` para tal
+
+```python
+pd.DataFrame({"A":[1,2,np.nan],"B":[4,np.nan,np.nan],"C":[1,2,3]}, index= ['oi', 'ola', 'oie'])
+
+>>>
+```
+
+![](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220516033430472.png)
+
+
+
+Para resolver a eventual falta de alguns valores no DataFrame (`NaN` ou `Null`),  pode-se:
+
+- REMOVER
+
+  `.dropna()` - Remove todas as linhas que possuem valor nulo
+
+  para remover as colunas, adiciona-se o parâmetro `axis=1`
+
+  usa-se o parâmetro `thresh` para salientar quantos elementos não nulos a matriz deve ter para não ser excluída
+
+- SUBSTITUIR
+
+  `.fillna()` - Substitui o NaN pelo valor passado no parâmetro
+
+
+
+Usa-se o `.mean()` para calcular a média de uma lista
+
+
+
+`.groupby()` é usado para juntar linhas de uma coluna para realizar funções de agregação
+
+é possível acessar a localização na memória onde se está sendo guardado os dados apenas o printando
+
+pode-se realizar operações com seus resultados, assim como o `.loc()` para retornar apenas uma parte
+
+Usa-se o `.describe()` para dar informações adicionais da matriz
+
+Para trocar colunas por linhas e vive versa, usa-se `.transpose()`
+
+
+
+Há 3 formas de juntar matrizes: Mesclar, Juntando e Concatenando
+
+- `pd.concat()` - CONCATENAR
+
+  As dimensões e o axis devem ser iguais para funcionar
+
+  recebe uma lista dos DataFrames a serem concatenados
+
+  caso o parâmetro `axis` seja 1, a lista será concatenada pelas colunas, senão, pelas linhas
+
+  ```python
+  pd.concat([df1,df2,df3], axis=1)
+  
+  >>>
+  ```
+
+  ![image-20220516035626741](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220516035626741.png)
+
+  
+
+- `pd.merge()` - MESCLAR
+
+  Funciona mesclando colunas
+
+  Localiza por padrão as chaves comuns e as mescla sem criar outras colunas
+
+  seu parâmetro `on` determina quais chaves não serão repetidas como colunas, caso elas existam em ambas as matrizes, senão dá erro
+
+  ```python
+  left = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K2'],
+                       'key2': ['K0', 'K1', 'K0', 'K1'],
+                          'A': ['A0', 'A1', 'A2', 'A3'],
+                          'B': ['B0', 'B1', 'B2', 'B3']})
+      
+  right = pd.DataFrame({'key1': ['K0', 'K1', 'K1', 'K2'],
+                        'key2': ['K0', 'K0', 'K0', 'K0'],
+                          'C': ['C0', 'C1', 'C2', 'C3'],
+                          'D': ['D0', 'D1', 'D2', 'D3']})
+  
+  pd.merge(left, right, on=['key1', 'key2'])
+  ```
+
+![image-20220516042428984](C:\Users\Marco Neto\AppData\Roaming\Typora\typora-user-images\image-20220516042428984.png)
+
+
+
+- `.join()` - JUNTAR
+
+  É possível juntas matrizes usando seu index
+
+  pode usar como parâmetro o `how` para diferentes tipos de juntar, como `how='inner'`, negando linhas com valores NaN, ou `how='outer'`, printando valores NaN
+
+
+
+`.head()` retorna os primeiros valores e o `.tail()` retorna os últimos valores
+
+
+
+`.unique()` retorna os valores únicos de um vetor
+
+`.nunique()` retorna o número de valores únicos (igual em `len()`)
+
+
+
+Para criar uma tabela com todos os valores únicos junto com o número de vezes que se repetem,  usa-se o método `.value_counts()`
+
+```python
+df["col1"].value_counts()
+
+>>> 4    1
+3    1
+2    1
+1    1
+Name: col1, dtype: int64
+```
+
+
+
+Função poderosíssima é o `.aplly()`, a qual permite que sejam integradas funções diretamente nos valores dos vetores
+
+```python
+def times2(x):
+    return x*2
+    
+df['col2'].apply(times2)
+# df['col2'].apply(lambda x: x*2) podendo ser feito com lambda também
+
+>>> 0    2
+1    4
+2    6
+3    8
+Name: col1, dtype: int64
+```
+
+
+
+Usa-se `.columns` para retornar as colunas, `.index` para o index e `.isnull()` para salientar os valores nulos
+
+
+
+Para sortear os valores de um DataFrame de certa forma, usa-se `.sort_values()`, como parâmetro a coluna e aceitando o `axis` também
+
+
+
+Para extrair conteúdo .csv, basta usar `pd.read_csv()` e o nome do arquivo como parâmetro
+
+Já para transformar em conteúdo .csv, basta `.to_csv()` e o nome do novo arquivo como parâmetro
+
+é importante acrescentar `index=False`  para não ter problemas de estética 
+
+> os "read" e "to"  existem para vários tipos de arquivos e funcionam da mesma forma para todos
+
+
+
+Para arquivos Excel, é importantíssimo salientar qual o "Sheet" a ser trabalhado para evitar erros
+
+```python
+pd.read_excel("Excel_Sample.xlsx", sheet_name="Sheet1")
+```
+
+
+
+O método `pd.read_html()` procura automaticamente dentro do código html do site a tag `<table>`
+
+É preferível que seja printado a tabela como `data[0]` do que `data` por motivos estéticos
 
 
 
