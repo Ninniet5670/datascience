@@ -742,6 +742,8 @@ Para sortear os valores de um DataFrame de certa forma, usa-se `.sort_values()`,
 
 Para extrair conteúdo .csv, basta usar `pd.read_csv()` e o nome do arquivo como parâmetro
 
+é importante acrescentar `index_col=[0]`  para não ter problemas de estética 
+
 Já para transformar em conteúdo .csv, basta `.to_csv()` e o nome do novo arquivo como parâmetro
 
 é importante acrescentar `index=False`  para não ter problemas de estética 
