@@ -488,7 +488,7 @@ df.drop('new', axis=1, inplace=True)
 
 
 
-Para extrair uma linha, usa-se o método `.loc()` ou o `.iloc()`, os quais também a converte para uma Series
+Para extrair uma linha, usa-se o método `.loc[]` ou o `.iloc[]`, os quais também a converte para uma Series
 
 pense no "loc" como "localization", recebe o nome do objeto como parâmetro
 
