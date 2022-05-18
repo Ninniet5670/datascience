@@ -732,7 +732,7 @@ Name: col1, dtype: int64
 
 
 
-Usa-se `.columns` para retornar as colunas, `.index` para o index e `.isnull()` para salientar os valores nulos
+Usa-se `.columns` para retornar as colunas, `.index` para o index e `.isnull()`/`.notnull()` para salientar (ou não) os valores nulos
 
 
 
