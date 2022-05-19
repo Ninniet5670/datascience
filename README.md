@@ -714,7 +714,9 @@ Name: col1, dtype: int64
 
 
 
-Função poderosíssima é o `.aplly()`, a qual permite que sejam integradas funções diretamente nos valores dos vetores
+Função poderosíssima é o `.aplly()`, a qual permite que sejam integradas funções diretamente nos valores dos index
+
+para mudar colunas, basta usar o parâmetro `axis='columns'` ou `axis=1`
 
 ```python
 def times2(x):
