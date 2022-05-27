@@ -1,4 +1,4 @@
-Existem 2 passos para se aprender Ciência de Dados (Data Science):
+​		Existem 2 passos para se aprender Ciência de Dados (Data Science):
 
 1. Análise de dados (Data Analysis):
 
@@ -570,7 +570,7 @@ não muda permanentemente o DataFrame original, apenas com `inplace=True`
 
 
 
-Para renomear o seu index, usa-se `.set_index()`
+Para renomear os valores do seu index, usa-se `.set_index()`
 
 é necessário que a quantidade do parâmetro seja igual ao número de linhas
 
@@ -735,6 +735,8 @@ Name: col1, dtype: int64
 
 
 Usa-se `.columns` para retornar as colunas, `.index` para o index e `.isnull()`/`.notnull()` para salientar (ou não) os valores nulos
+
+`.isnull()` e `.notnull()` podem ser usadas tanto como funções como métodos
 
 
 
