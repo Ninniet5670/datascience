@@ -1,4 +1,4 @@
-​		Existem 2 passos para se aprender Ciência de Dados (Data Science):
+		Existem 2 passos para se aprender Ciência de Dados (Data Science):
 
 1. Análise de dados (Data Analysis):
 
@@ -773,6 +773,38 @@ O método `pd.read_html()` procura automaticamente dentro do código html do sit
 - ## Matplotlib - *Visualização de dados*
 
 É uma biblioteca multiplataforma de visualização de dados e plotagem gráfica para o Python e suas extensões numéricas do NumPy
+
+
+
+A importação desta biblioteca faz-se da seguinte forma:
+
+```python
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+```
+
+O comando digitado após a porcentagem ajudará a printar o output do matplot no Jupyter Notebook
+
+Caso esteja usando outro editor além do Jupyter, é necessário o comando `plt.show()` toda vez que quiser printar o output do matplot
+
+
+
+Há 2 formas de se plotar um gráfico, por função e por orientação a objetos (método certo)
+
+Por função, usa-se o `plt.plot()`, usando como parâmetro os vetores 
+
+Caso a função `show` seja usada no Jupyter, o gráfico será printado invés de exibido, sem aparecer a barra de output
+
+
+
+Para mudar a cor da linha no gráfico, passa-se um terceiro parâmetro com a inicial das cores
+
+Para dar um nome a um eixo "x", usa-se o `plt.xlabel()`, tendo como parâmetro o seu nome
+
+Para dar um título ao gráfico, usa-se `plt.title()`, tendo como parâmetro o seu nome
+
+> basta juntar várias funções em uma mesma célula para rodar todas em um mesmo gráfico
 
 
 
