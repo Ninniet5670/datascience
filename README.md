@@ -742,9 +742,15 @@ Usa-se `.columns` para retornar as colunas, `.index` para o index e `.isnull()`/
 
 Para sortear os valores de um DataFrame de certa forma, usa-se `.sort_values()`, como parâmetro a coluna e aceitando o `axis` também
 
+Para tirar o limite de colunas visualizadas, usa-se `pd.options.display.max_columns = None`
+
 
 
 Para extrair conteúdo .csv, basta usar `pd.read_csv()` e o nome do arquivo como parâmetro
+
+O parâmetro `sep` definirá o caractere separador de linhas, possui como padrão a vírgula. Ex: `sep=';'`
+
+O parâmetro `encoding` definirá o tipo de codificação que será lida. Ex: `encoding='latin_1'`
 
 é importante acrescentar `index_col=[0]`  para não ter problemas de estética 
 
