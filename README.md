@@ -642,6 +642,8 @@ Há 3 formas de juntar matrizes: Mesclar, Juntando e Concatenando
 
   As dimensões e o axis devem ser iguais para funcionar
 
+  `ignore_index` substitui os índices de acordo com a ordem do novo DataFrame caso True, senão são mantidos
+
   recebe uma lista dos DataFrames a serem concatenados
 
   caso o parâmetro `axis` seja 1, a lista será concatenada pelas colunas, senão, pelas linhas
